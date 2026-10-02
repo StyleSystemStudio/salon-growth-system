@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#A4505F">
+<title>Salon Growth System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#FBF4F2;--card:#FFFDFC;--ink:#3A2A2C;--mute:#85706F;--line:#EBD9D6;--brand:#A4505F;--bi:#fff;--soft:#F7E6E4;--ok:#3F7D63;--warn:#B06A22;--bad:#B3354A;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E1517;--card:#2A1D20;--ink:#F6E9E6;--mute:#B9A19F;--line:#43302F;--brand:#E3A0AC;--bi:#2A1D20;--soft:#3A272B;--ok:#7CCBA3;--warn:#E8A15C;--bad:#F08A9B}}
+:root[data-theme="dark"]{--bg:#1E1517;--card:#2A1D20;--ink:#F6E9E6;--mute:#B9A19F;--line:#43302F;--brand:#E3A0AC;--bi:#2A1D20;--soft:#3A272B;--ok:#7CCBA3;--warn:#E8A15C;--bad:#F08A9B}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "DM Sans",system-ui,sans-serif;padding-bottom:84px}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;margin:0;font-weight:700}
+h1{font-size:30px}h2{font-size:22px}
+main{max-width:920px;margin:0 auto;padding:16px}
+header{margin:4px 0 16px}header small{color:var(--mute)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;background:none;border:0;color:var(--mute);font:500 12.5px "DM Sans",sans-serif;padding:10px 2px;border-radius:10px;cursor:pointer}
+nav button.on{color:var(--brand);background:var(--soft);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.hero{background:var(--brand);color:var(--bi);border:0;border-radius:20px;padding:22px}
+.hero .big{font:700 58px/1 "Cormorant Garamond",serif}
+.hero p{margin:6px 0 0;opacity:.92}
+.bar{height:12px;border-radius:99px;background:rgba(255,255,255,.3);overflow:hidden;margin:16px 0 8px}
+.bar i{display:block;height:100%;background:var(--bi);border-radius:99px;transition:width .6s}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:14px}
+.stat b{display:block;font:700 26px "Cormorant Garamond",serif}.stat span{color:var(--mute);font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}.row .t{min-width:0}.row .t b{display:block}.row .t span{color:var(--mute);font-size:13px}
+button.b{background:var(--brand);color:var(--bi);border:0;border-radius:10px;padding:9px 14px;font:700 14px "DM Sans",sans-serif;cursor:pointer}
+button.g,a.g{background:transparent;color:var(--brand);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font:500 13px "DM Sans",sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+.d{color:var(--bad)!important}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;background:var(--soft);color:var(--brand);font-weight:700}
+.pill.ok{color:var(--ok)}.pill.bad{color:var(--bad)}.pill.warn{color:var(--warn)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:140px;margin-top:10px}
+.bars div{flex:1;text-align:center;font-size:12px;color:var(--mute)}
+.bars i{display:block;background:var(--brand);border-radius:6px 6px 0 0;min-height:3px;opacity:.8;margin-bottom:4px}
+.bars div:last-child i{opacity:1}
+.empty{color:var(--mute);margin:6px 0}
+.top{display:flex;gap:10px;margin-bottom:12px}
+dialog{border:0;border-radius:16px;padding:20px;width:min(440px,92vw);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(30,15,20,.55)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sec{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.ck{color:var(--mute)}.ck.y{color:var(--ok)}
+footer{text-align:center;color:var(--mute);font-size:12px;margin:20px 0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Salon Growth">
+</head>
+<body>
+<main>
+<header><h1 id="brand"></h1><small id="sub"></small></header>
+<div id="view"></div>
+<footer>Salon Growth System v1.0 · For use in one salon only. Do not resell or share.</footer>
+</main>
+<nav id="nav"></nav>
+<dialog id="dlg"></dialog>
+<input type="file" id="imp" accept=".json" hidden>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const addDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const today=()=>iso(new Date());
+const uid=()=>Math.random().toString(36).slice(2,9);
+const KEY='salon-growth-system-v1';
+const CURS=['USD','EUR','GBP','CAD','AUD','CHF','AED','SAR','MAD'];
+function guessCur(){const r=((navigator.language||'').split('-')[1]||'').toUpperCase();if('FR DE IT ES NL BE IE PT AT FI GR LU'.split(' ').includes(r))return'EUR';return{US:'USD',GB:'GBP',CA:'CAD',AU:'AUD',CH:'CHF',AE:'AED',SA:'SAR',MA:'MAD'}[r]||'USD'}
+const blank=()=>({setup:false,brand:'My Beauty Salon',cur:guessCur(),goal:0,days:22,rebook:35,services:[],clients:[],appts:[],exp:[],flags:{}});
+let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S.services)S=blank();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const money=n=>{try{return new Intl.NumberFormat(undefined,{style:'currency',currency:S.cur,maximumFractionDigits:0}).format(n||0)}catch(e){return S.cur+' '+Math.round(n||0)}};
+let tab='dash',q='';
+const TABS=[['dash','Home'],['appts','Bookings'],['clients','Clients'],['money','Money'],['set','Settings']];
+const cname=id=>(S.clients.find(c=>c.id===id)||{name:'Deleted client'}).name;
+const sname=id=>(S.services.find(s=>s.id===id)||{name:'Service'}).name;
+const rev=a=>(a.price||0)+(a.retail||0);
+const mk=d=>d.slice(0,7);
+const monthRev=k=>S.appts.filter(a=>a.status==='done'&&mk(a.date)===k).reduce((t,a)=>t+rev(a),0);
+const monthExp=k=>S.exp.filter(e=>mk(e.date)===k).reduce((t,e)=>t+e.amt,0);
+const daysSince=d=>Math.floor((new Date(today())-new Date(d))/864e5);
+function cstats(c){const v=S.appts.filter(a=>a.cid===c.id&&a.status==='done').sort((a,b)=>b.date.localeCompare(a.date));
+  return{visits:v.length,spent:v.reduce((t,a)=>t+rev(a),0),last:v[0]&&v[0].date,next:S.appts.some(a=>a.cid===c.id&&a.status==='booked'&&a.date>=today())}}
+const winBack=()=>S.clients.map(c=>({c,s:cstats(c)})).filter(x=>!x.s.next&&(!x.s.last||daysSince(x.s.last)>=S.rebook)).sort((a,b)=>b.s.spent-a.s.spent);
+function wa(c,text){const p=(c.phone||'').replace(/\D/g,'');return p.length>6?`<a class="g" target="_blank" rel="noopener" href="https://wa.me/${p}?text=${encodeURIComponent(text)}">Message</a>`:'<span class="pill">No phone</span>'}
+const first=c=>c.name.split(' ')[0];
+
+function sample(){
+  const sv=[['Haircut & blow-dry',55],['Colour & highlights',120],['Manicure',35],['Signature facial',70],['Lash lift',60]].map((x,i)=>({id:'s'+i,name:x[0],price:x[1]}));
+  S.services=sv;
+  S.clients=[['Camille Laurent','+33612345678','Prefers morning slots'],['Sofia Marino','+39333456789','Allergic to ammonia dyes'],['Hannah Becker','+4915123456789','Referred by Camille'],['Léa Dubois','+33798765432',''],['Marta Ruiz','+34612345678','Birthday in November']].map((x,i)=>({id:'c'+i,name:x[0],phone:x[1],notes:x[2]}));
+  S.appts=[[0,1,-60],[0,0,-20],[1,3,-52],[1,3,-12],[2,0,-8],[2,2,-3],[3,4,-70],[4,1,-5],[4,2,-1],[0,2,-30]].map((x,i)=>({id:'a'+i,cid:'c'+x[0],sid:'s'+x[1],date:addDays(x[2]),time:'10:00',price:sv[x[1]].price,retail:i%3?0:25,status:'done'}));
+  S.appts.push({id:'t1',cid:'c0',sid:'s0',date:today(),time:'14:30',price:55,retail:0,status:'booked'},{id:'t2',cid:'c2',sid:'s3',date:addDays(2),time:'11:00',price:70,retail:0,status:'booked'});
+  S.exp=[{id:'e1',date:addDays(-9),label:'Products & supplies',amt:180},{id:'e2',date:addDays(-4),label:'Chair rent',amt:400}];
+  S.goal=S.goal||4000;S.setup=true;
+}
+
+function dash(){
+  const n=new Date(),key=iso(n).slice(0,7),earned=monthRev(key),spent=monthExp(key);
+  const dim=new Date(n.getFullYear(),n.getMonth()+1,0).getDate(),left=dim-n.getDate()+1,wl=Math.max(1,Math.round(S.days*left/dim));
+  const booked=S.appts.filter(a=>a.status==='booked'&&mk(a.date)===key&&a.date>=today()).reduce((t,a)=>t+rev(a),0);
+  const goal=S.goal,pct=goal?Math.min(100,Math.round(earned/goal*100)):0,rem=Math.max(0,goal-earned);
+  const done=S.appts.filter(a=>a.status==='done'&&mk(a.date)===key);
+  const avg=done.length?earned/done.length:(S.services.reduce((t,s)=>t+s.price,0)/(S.services.length||1));
+  const need=avg?Math.ceil(rem/avg):0;
+  const tod=S.appts.filter(a=>a.status==='booked'&&a.date===today()).sort((a,b)=>a.time.localeCompare(b.time));
+  const wb=winBack().slice(0,5);
+  const thx=S.appts.filter(a=>a.status==='done'&&a.date>=addDays(-2)).slice(0,4);
+  const months=[...Array(6)].map((_,i)=>{const d=new Date(n.getFullYear(),n.getMonth()-5+i,1);return{l:d.toLocaleString('en',{month:'short'}),v:monthRev(iso(d).slice(0,7))}});
+  const mx=Math.max(1,goal,...months.map(m=>m.v));
+  const cl=[['Set your monthly revenue goal',S.goal>0],['Add your services and prices',S.services.length>0],['Add your first client',S.clients.length>0],['Book an appointment',S.appts.length>0],['Log a business expense',S.exp.length>0],['Download a backup (Settings)',!!S.flags.backup]];
+  return`${cl.some(x=>!x[1])?`<section class="card"><h2>Get started</h2>${cl.map(x=>`<div class="ck ${x[1]?'y':''}">${x[1]?'✓':'○'} ${x[0]}</div>`).join('')}</section>`:''}
+  <section class="card hero"><div>${n.toLocaleString('en',{month:'long'})} revenue goal</div>
+  <div class="big">${money(earned)}</div><p>${goal?`of ${money(goal)} · ${pct}% reached`:'Set a goal in the Money tab to track your progress'}</p>
+  <div class="bar"><i style="width:${pct}%"></i></div>
+  <p>${!goal?'':rem?`${money(rem)} to go · about ${need} more appointments · ${money(rem/wl)} per working day`:'Goal reached. Everything from here is bonus.'}</p></section>
+  <div class="grid"><div class="card stat"><b>${money(earned-spent)}</b><span>Profit this month</span></div>
+  <div class="card stat"><b>${money(booked)}</b><span>Already booked</span></div>
+  <div class="card stat"><b>${money(avg)}</b><span>Average ticket</span></div>
+  <div class="card stat"><b>${tod.length}</b><span>Appointments today</span></div></div>
+  <section class="card"><div class="sec"><h2>Today</h2><button class="b" onclick="apptForm()">Book</button></div>
+  ${tod.length?tod.map(a=>`<div class="row"><div class="t"><b>${a.time} · ${esc(cname(a.cid))}</b><span>${esc(sname(a.sid))} · ${money(rev(a))}</span></div><button class="g" onclick="setStatus('${a.id}','done')">Mark done</button></div>`).join(''):'<p class="empty">Nothing booked today. Use the rebook list below to fill the day.</p>'}</section>
+  <section class="card"><h2>Rebook before they leave</h2><p class="empty">Clients with no visit in ${S.rebook}+ days and no booking.</p>
+  ${wb.length?wb.map(({c,s})=>`<div class="row"><div class="t"><b>${esc(c.name)}</b><span>${s.last?`Last visit ${daysSince(s.last)} days ago`:'No visit yet'} · ${money(s.spent)} lifetime</span></div><div class="acts">${wa(c,`Hi ${first(c)}! It has been a while since your last visit at ${S.brand}. Would you like to book your next appointment?`)}<button class="g" onclick="apptForm('${c.id}')">Book</button></div></div>`).join(''):'<p class="empty">Every client has a recent visit or a booking.</p>'}</section>
+  <section class="card"><h2>Follow up after appointments</h2>
+  ${thx.length?thx.map(a=>{const c=S.clients.find(x=>x.id===a.cid);return c?`<div class="row"><div class="t"><b>${esc(c.name)}</b><span>${esc(sname(a.sid))} · ${a.date}</span></div>${wa(c,`Hi ${first(c)}, thank you for visiting ${S.brand}! How are you feeling about your ${sname(a.sid)}? Let me know if you need anything.`)}</div>`:''}).join(''):'<p class="empty">Completed visits from the last 2 days appear here for a thank-you message.</p>'}</section>
+  <section class="card"><h2>Revenue, last 6 months</h2><div class="bars">${months.map(m=>`<div><i style="height:${Math.round(m.v/mx*100)}px"></i>${m.l}<br>${money(m.v)}</div>`).join('')}</div></section>`;
+}
+function appts(){
+  const t=today(),up=S.appts.filter(a=>a.status==='booked'&&a.date>=t).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const hist=S.appts.filter(a=>!(a.status==='booked'&&a.date>=t)).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  const line=a=>`<div class="row"><div class="t"><b>${esc(cname(a.cid))}</b><span>${a.date} ${a.time} · ${esc(sname(a.sid))} · ${money(rev(a))} <span class="pill ${a.status==='done'?'ok':a.status==='cancelled'?'bad':'warn'}">${a.status==='booked'&&a.date<t?'to confirm':a.status}</span></span></div>
+  <div class="acts">${a.status==='booked'?`<button class="g" onclick="setStatus('${a.id}','done')">Done</button>`:''}<button class="g" onclick="apptForm('','${a.id}')">Edit</button><button class="g d" onclick="delAppt('${a.id}')">Delete</button></div></div>`;
+  return`<div class="top"><button class="b" onclick="apptForm()">Book appointment</button></div>
+  <section class="card"><h2>Upcoming</h2>${up.length?up.map(line).join(''):'<p class="empty">No upcoming appointments. Book one to start earning toward your goal.</p>'}</section>
+  <section class="card"><h2>History</h2>${hist.length?hist.slice(0,40).map(line).join(''):'<p class="empty">Completed visits will appear here.</p>'}</section>`;
+}
+function clients(){
+  const list=S.clients.filter(c=>(c.name+c.phone+c.notes).toLowerCase().includes(q.toLowerCase()));
+  return`<div class="top"><input id="q" placeholder="Search clients" value="${esc(q)}" aria-label="Search clients"><button class="b" onclick="clientForm()">Add</button></div>
+  <section class="card">${list.length?list.map(c=>{const s=cstats(c);
+  return`<div class="row"><div class="t"><b>${esc(c.name)} ${s.spent>=300?'<span class="pill">VIP</span>':''}</b><span>${esc(c.phone)} · ${s.visits} visits · ${money(s.spent)} spent${s.last?` · last ${daysSince(s.last)}d ago`:''}</span>${c.notes?`<span>Note: ${esc(c.notes)}</span>`:''}</div>
+  <div class="acts"><button class="g" onclick="apptForm('${c.id}')">Book</button><button class="g" onclick="clientForm('${c.id}')">Edit</button><button class="g d" onclick="delClient('${c.id}')">Delete</button></div></div>`}).join(''):'<p class="empty">No clients yet. Add your first client to track visits and spend.</p>'}</section>`;
+}
+function moneyView(){
+  const key=today().slice(0,7),avg=S.services.reduce((t,s)=>t+s.price,0)/(S.services.length||1),per=avg?Math.ceil(S.goal/avg):0;
+  const ex=S.exp.filter(e=>mk(e.date)===key).sort((a,b)=>b.date.localeCompare(a.date));
+  const m={};S.appts.filter(a=>a.status==='done').forEach(a=>m[a.sid]=(m[a.sid]||0)+rev(a));
+  const e=Object.entries(m).sort((a,b)=>b[1]-a[1]),mx=e[0]?e[0][1]:1;
+  return`<section class="card"><h2>Revenue goal</h2><div class="two"><div><label for="goalIn">Monthly goal (${S.cur})</label><input id="goalIn" type="number" min="0" step="100" value="${S.goal}"></div><div><label for="daysIn">Working days per month</label><input id="daysIn" type="number" min="1" max="31" value="${S.days}"></div></div>
+  <p class="empty">Income goal ÷ average service price = clients needed: about <b>${per}</b> appointments a month, or <b>${Math.ceil(per/S.days)}</b> per working day.</p></section>
+  <section class="card"><div class="sec"><h2>Services &amp; prices</h2><button class="b" onclick="svcForm()">Add</button></div>
+  ${S.services.length?S.services.map(s=>`<div class="row"><div class="t"><b>${esc(s.name)}</b><span>${money(s.price)}</span></div><div class="acts"><button class="g" onclick="svcForm('${s.id}')">Edit</button><button class="g d" onclick="delSvc('${s.id}')">Delete</button></div></div>`).join(''):'<p class="empty">Add the services you sell so booking fills in prices for you.</p>'}</section>
+  <section class="card"><div class="sec"><h2>Expenses this month</h2><button class="b" onclick="expForm()">Add</button></div>
+  <p class="empty">Revenue ${money(monthRev(key))} − expenses ${money(monthExp(key))} = <b>profit ${money(monthRev(key)-monthExp(key))}</b></p>
+  ${ex.map(x=>`<div class="row"><div class="t"><b>${esc(x.label)}</b><span>${x.date} · ${money(x.amt)}</span></div><button class="g d" onclick="delExp('${x.id}')">Delete</button></div>`).join('')||'<p class="empty">Log rent, products and supplies to see your real profit.</p>'}</section>
+  <section class="card"><h2>Top earning services</h2>${e.length?e.map(([id,v])=>`<div class="row"><div class="t" style="flex:1"><b>${esc(sname(id))}</b><div style="height:8px;border-radius:9px;background:var(--soft);margin-top:6px"><i style="display:block;height:100%;width:${v/mx*100}%;background:var(--brand);border-radius:9px"></i></div></div><b>${money(v)}</b></div>`).join(''):'<p class="empty">Mark appointments as done to see revenue by service.</p>'}</section>`;
+}
+function settings(){
+  return`<section class="card"><h2>Your salon</h2><label for="brIn">Salon name</label><input id="brIn" value="${esc(S.brand)}">
+  <label for="curIn">Currency</label><select id="curIn">${CURS.map(c=>`<option ${c===S.cur?'selected':''}>${c}</option>`).join('')}</select>
+  <label for="rbIn">Rebook reminder after (days without a visit)</label><input id="rbIn" type="number" min="7" value="${S.rebook}"></section>
+  <section class="card"><h2>Your data</h2><p class="empty">Everything is stored on this device only. Download a backup regularly and before changing phones.</p>
+  <div class="acts" style="justify-content:flex-start"><button class="b" onclick="backup()">Download backup</button><button class="g" onclick="$('#imp').click()">Restore backup</button><button class="g" onclick="csv()">Export clients (CSV)</button></div></section>
+  <section class="card"><h2>Start fresh</h2><div class="acts" style="justify-content:flex-start"><button class="g" onclick="if(confirm('Replace your data with sample data?')){sample();save();render()}">Load sample data</button><button class="g d" onclick="clearAll()">Clear all data</button></div></section>
+  <section class="card"><h2>About</h2><p class="empty">Salon Growth System v1.0. Add this page to your phone's home screen (Share → Add to Home Screen on iPhone, menu → Install app on Android) to use it like an app. Licensed for one salon. Resale, sharing or redistribution is not permitted.</p></section>`;
+}
+function render(){
+  $('#brand').textContent=S.brand||'My Beauty Salon';
+  $('#sub').textContent=new Date().toLocaleDateString('en',{weekday:'long',day:'numeric',month:'long'});
+  $('#nav').innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="go('${k}')">${l}</button>`).join('');
+  $('#view').innerHTML={dash,appts,clients,money:moneyView,set:settings}[tab]();
+  const bind=(id,f)=>{const el=$(id);if(el)el.onchange=e=>{f(e.target.value);save();render()}};
+  bind('#goalIn',v=>S.goal=Math.max(0,+v||0));bind('#daysIn',v=>S.days=Math.min(31,Math.max(1,+v||22)));
+  bind('#brIn',v=>S.brand=v.trim()||'My Beauty Salon');bind('#curIn',v=>S.cur=v);bind('#rbIn',v=>S.rebook=Math.max(7,+v||35));
+  const qi=$('#q');if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(p,p)};
+}
+function go(t){tab=t;render();window.scrollTo(0,0)}
+function setStatus(id,s){const a=S.appts.find(x=>x.id===id);if(a)a.status=s;save();render()}
+function delAppt(id){S.appts=S.appts.filter(a=>a.id!==id);save();render()}
+function delExp(id){S.exp=S.exp.filter(a=>a.id!==id);save();render()}
+function delClient(id){if(confirm('Delete this client and their appointments?')){S.clients=S.clients.filter(c=>c.id!==id);S.appts=S.appts.filter(a=>a.cid!==id);save();render()}}
+function delSvc(id){S.services=S.services.filter(s=>s.id!==id);save();render()}
+function clearAll(){if(confirm('Delete ALL data on this device? Download a backup first.')){const c=S.cur;S=blank();S.cur=c;save();render();setup()}}
+function dl(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click()}
+function backup(){S.flags.backup=1;save();dl(`salon-backup-${today()}.json`,JSON.stringify(S),'application/json');render()}
+function csv(){const c=v=>'"'+String(v??'').replace(/"/g,'""')+'"';dl('clients.csv',['Name,Phone,Notes,Visits,Spent,Last visit',...S.clients.map(x=>{const s=cstats(x);return[x.name,x.phone,x.notes,s.visits,s.spent,s.last||''].map(c).join(',')})].join('\n'),'text/csv')}
+$('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.services||!d.clients||!d.appts)throw 0;if(confirm('Replace current data with this backup?')){S=Object.assign(blank(),d);save();render()}}catch(x){alert('This file is not a valid backup.')}};r.readAsText(f);e.target.value=''};
+
+const dlg=$('#dlg');
+function modal(title,body,onSave){
+  dlg.innerHTML=`<h2>${title}</h2><div>${body}</div><div class="acts" style="margin-top:16px"><button class="g" id="mc">Cancel</button><button class="b" id="ms">Save</button></div>`;
+  $('#mc').onclick=()=>dlg.close();$('#ms').onclick=()=>{if(onSave()!==false){save();dlg.close();render()}};dlg.showModal();
+}
+function setup(){
+  S.setup=true;save();
+  modal('Welcome',`<p class="empty">Set up your salon in 20 seconds. You can change everything later.</p><label for="f1">Salon name</label><input id="f1" value="${esc(S.brand)}"><label for="f2">Currency</label><select id="f2">${CURS.map(c=>`<option ${c===S.cur?'selected':''}>${c}</option>`).join('')}</select><label for="f3">Monthly revenue goal</label><input id="f3" type="number" min="0" step="100" placeholder="4000">`,()=>{
+    S.brand=$('#f1').value.trim()||S.brand;S.cur=$('#f2').value;S.goal=Math.max(0,+$('#f3').value||0);
+  });
+}
+function clientForm(id){
+  const c=S.clients.find(x=>x.id===id)||{name:'',phone:'',notes:''};
+  modal(id?'Edit client':'Add client',`<label for="f1">Name</label><input id="f1" value="${esc(c.name)}"><label for="f2">Phone (with country code, for messages)</label><input id="f2" value="${esc(c.phone)}" placeholder="+33612345678"><label for="f3">Notes (allergies, preferences)</label><textarea id="f3" rows="3">${esc(c.notes)}</textarea>`,()=>{
+    const name=$('#f1').value.trim();if(!name){$('#f1').focus();return false}
+    const o={name,phone:$('#f2').value.trim(),notes:$('#f3').value};if(id)Object.assign(c,o);else S.clients.push({id:uid(),...o});
+  });
+}
+function svcForm(id){
+  const s=S.services.find(x=>x.id===id)||{name:'',price:50};
+  modal(id?'Edit service':'Add service',`<label for="f1">Service name</label><input id="f1" value="${esc(s.name)}"><label for="f2">Price (${S.cur})</label><input id="f2" type="number" min="0" value="${s.price}">`,()=>{
+    const name=$('#f1').value.trim();if(!name){$('#f1').focus();return false}
+    const o={name,price:Math.max(0,+$('#f2').value||0)};if(id)Object.assign(s,o);else S.services.push({id:uid(),...o});
+  });
+}
+function expForm(){
+  modal('Add expense',`<label for="f1">What was it for?</label><input id="f1" placeholder="Products, rent, software"><div class="two"><div><label for="f2">Amount (${S.cur})</label><input id="f2" type="number" min="0"></div><div><label for="f3">Date</label><input id="f3" type="date" value="${today()}"></div></div>`,()=>{
+    const label=$('#f1').value.trim(),amt=+$('#f2').value;if(!label||!amt){$('#f1').focus();return false}
+    S.exp.push({id:uid(),label,amt,date:$('#f3').value||today()});
+  });
+}
+function apptForm(cid,id){
+  if(!S.clients.length){clientForm();return}
+  if(!S.services.length){go('money');svcForm();return}
+  const a=S.appts.find(x=>x.id===id)||{cid,sid:S.services[0].id,date:today(),time:'10:00',price:S.services[0].price,retail:0,status:'booked'};
+  modal(id?'Edit appointment':'Book appointment',`<label for="f1">Client</label><select id="f1">${S.clients.map(c=>`<option value="${c.id}" ${c.id===a.cid?'selected':''}>${esc(c.name)}</option>`).join('')}</select>
+  <label for="f2">Service</label><select id="f2">${S.services.map(s=>`<option value="${s.id}" ${s.id===a.sid?'selected':''}>${esc(s.name)} · ${money(s.price)}</option>`).join('')}</select>
+  <div class="two"><div><label for="f3">Date</label><input id="f3" type="date" value="${a.date}"></div><div><label for="f4">Time</label><input id="f4" type="time" value="${a.time}"></div></div>
+  <div class="two"><div><label for="f5">Price (${S.cur})</label><input id="f5" type="number" min="0" value="${a.price}"></div><div><label for="f7">Retail sold (${S.cur})</label><input id="f7" type="number" min="0" value="${a.retail||0}"></div></div>
+  <label for="f6">Status</label><select id="f6">${['booked','done','cancelled'].map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}</select>`,()=>{
+    const o={cid:$('#f1').value,sid:$('#f2').value,date:$('#f3').value||today(),time:$('#f4').value||'10:00',price:Math.max(0,+$('#f5').value||0),retail:Math.max(0,+$('#f7').value||0),status:$('#f6').value};
+    if(id)Object.assign(a,o);else S.appts.push({id:uid(),...o});
+  });
+  $('#f2').onchange=e=>{$('#f5').value=(S.services.find(s=>s.id===e.target.value)||{}).price||0};
+}
+render();
+if(!S.setup)setup();
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
